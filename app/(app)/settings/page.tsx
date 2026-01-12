@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CreditCard } from "lucide-react";
 import { sanityFetch } from "@/sanity/lib/live";
 import { USER_CONNECTED_ACCOUNTS_DISPLAY_QUERY } from "@/sanity/queries/users";
+import { AccountManager } from "@/components/settings/account-manager";
 import { getUserPlanLimits } from "@/lib/features";
 
 export default async function SettingsPage({
@@ -27,7 +28,6 @@ export default async function SettingsPage({
 
   const connectedAccounts = user?.connectedAccounts ?? [];
   const params = await searchParams;
-
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-2xl">
@@ -63,9 +63,11 @@ export default async function SettingsPage({
         </div>
       )}
 
-      {
-        // Add account manager here
-      }
+      <AccountManager
+        connectedAccounts={connectedAccounts}
+        maxCalendars={planLimits.maxConnectedCalendars}
+        plan={planLimits.plan}
+      />
 
       {/* Billing Section */}
       <div className="mt-8 pt-8 border-t">
